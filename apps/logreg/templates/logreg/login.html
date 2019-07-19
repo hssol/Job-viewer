@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>User Login</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+
+        }
+        h1{
+            border-top: 1px solid black;
+            margin-top: 20px;
+        }
+        h2{
+            margin-left: 20px;
+            margin-top: 20px;
+        }
+        .login{
+            display: inline-block;
+            height: auto;
+            width: 400px;
+            vertical-align: top;
+            margin-left: 20px;
+        }
+        .register{
+            display: inline-block;
+            height: auto;
+            width: 400px;
+            vertical-align: top;
+            margin-left: 20px;
+        }
+        th, tr, td{
+            border: 1px solid black;
+            text-align: center;
+            
+        }
+        button{
+            margin-top: 10px;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <h2>Please login or register to proceed</h2>
+        <div class="login">  
+            <h1>Login</h1>
+            <form action="/login_account" method="POST">
+                {% csrf_token %}
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend"><span class="input-group-text" id="basic-addon1">Username</span></div>
+                    <input type="text" class="form-control" aria-label="newShow" aria-describedby="basic-addon1" name="login_username">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend"><span class="input-group-text" id="basic-addon1">Password</span></div>
+                    <input type="password" class="form-control" aria-label="newShow" aria-describedby="basic-addon1" name="login_password">
+                </div>
+                <input type="submit" value="Login" class="btn btn-info"></input>
+            </form>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        {% if "login" in message.tags %}
+                            <li>{{ message }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="register">
+            <h1>Register</h1>
+            <form action="/register_account" method="POST">
+                {% csrf_token %}
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend"><span class="input-group-text" id="basic-addon1">Username</span></div>
+                    <input type="text" class="form-control" aria-label="newShow" aria-describedby="basic-addon1" name="register_username">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend"><span class="input-group-text" id="basic-addon1">Email</span></div>
+                    <input type="email" class="form-control" aria-label="newShow" aria-describedby="basic-addon1" name="register_email">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend"><span class="input-group-text" id="basic-addon1">Password</span></div>
+                    <input type="password" class="form-control" aria-label="newShow" aria-describedby="basic-addon1" name="register_password">
+                </div>
+                <input type="submit" value="Register" class="btn btn-info"></input>
+            </form>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        {% if "register" in message.tags %}
+                            <li>{{ message }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

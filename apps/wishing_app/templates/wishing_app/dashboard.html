@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Shows</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        h1{
+            border-top: 1px solid black;
+        }
+        .addABook{
+            background: rgba(255, 255, 255, 0.87);
+            display: inline-block;
+            vertical-align: top;
+        }
+        th, tr, td{
+            border: 1px solid black;
+            text-align: center;
+            
+        }
+        h2, h4{
+            display: inline-block;
+            margin-top: 10px;
+            margin-right: 20px;
+        }
+        table{
+            margin-bottom: 10px;
+        }
+        .topright{
+            display: inline-block;
+            margin-left: 500px;
+
+        }
+        </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <h2>Welcome, {{request.session.username}}</h2>
+        <div class="topright"> <a href="/logout"><button class="btn btn-warning">Logout</button></a><a name="add_job" class="btn btn-primary" href="/jobs/new" role="button">New job!</a></div>
+       
+        <h1>Everyone's jobs:</h1>
+        <table style="width:30%">
+            <tr>
+                <th>Job</th>
+                <th>Location</th> 
+                <th>Actions</th>   
+            </tr>
+            {% for job in all_jobs %}
+            <tr>
+                <td>{{job.title}}</td>
+                <td>{{job.location}}</td>
+                <td><a href="/jobs/{{job.id}}"> View </a>
+                {% if request.session.activeuser == job.user_jobs.id %}
+                <a href="/jobs/edit/{{job.id}}"> Edit </a><a href="/delete_job/{{job.id}}"> Delete </a></td>    
+                {% endif %}    
+            </tr>
+            {% endfor %}
+        </table>
+
+        <h1>{{request.session.username}}'s jobs:</h1>
+        <table style="width:30%">
+            <tr>
+                <th>Job</th>
+                <th>Location</th> 
+                <th>Actions</th>   
+            </tr>
+            {% for job in all_jobs %}
+            <tr>
+                {% if request.session.activeuser == job.user_jobs.id %}
+                    <td>{{job.title}}</td>
+                    <td>{{job.location}}</td>
+                    <td><a href="/jobs/{{job.id}}"> View </a>
+                    {% if request.session.activeuser == job.user_jobs.id %}
+                        <a href="/jobs/edit/{{job.id}}"> Edit </a><a href="/delete_job/{{job.id}}"> Delete </a></td>    
+                    {% endif %}
+                {% endif %}    
+            </tr>
+            {% endfor %}
+        </table>
+
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
